@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Biologie — Bike Study Ride 🚲</title>
+<title>Biologie — Her Bike Study Ride 🚲</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -151,6 +151,11 @@ h1 {
   gap: 10px;
   flex-wrap: wrap;
   margin: 20px 0 30px;
+}
+
+.toolbar.bottom-toolbar {
+  margin: 30px 0 20px;
+  justify-content: center;
 }
 
 button {
@@ -391,6 +396,13 @@ label.wrong span.opt-btn {
 
   <div id="quiz"></div>
   <div id="result" class="hidden"></div>
+
+  <!-- Bottom Toolbar Added Here -->
+  <div class="toolbar bottom-toolbar">
+    <button onclick="grade()">✓ Check answers</button>
+    <button class="secondary" onclick="showWrong()">🔧 Pit stop — wrong questions</button>
+    <button class="secondary" onclick="resetQuiz()">↻ New ride</button>
+  </div>
 
   <p class="small">💡 <b>Study strategy:</b> Answer first without looking. If you're stuck, use the answer button on that question. After checking, use the Pit Stop to revisit mistakes.</p>
 </div>
