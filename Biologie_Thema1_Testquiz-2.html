@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Biologie — Her Bike Study Ride 🚲</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-dark: #090b10;
+  --card-bg: rgba(22, 27, 38, 0.75);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --accent-pink: #ff6b9d;
+  --accent-blue: #4da6ff;
+  --accent-green: #2ecc71;
+  --accent-red: #ff4757;
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at 15% 0%, rgba(255, 107, 157, 0.12), transparent 35%),
+              radial-gradient(circle at 85% 20%, rgba(77, 166, 255, 0.12), transparent 35%),
+              var(--bg-dark);
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: radial-gradient(#fff 1px, transparent 1px);
+  background-size: 24px 24px;
+  z-index: 0;
+}
+
+.wrap {
+  max-width: 860px;
+  margin: auto;
+  padding: 30px 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 32px 28px;
+  margin-bottom: 20px;
+  background: rgba(18, 22, 31, 0.8);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 107, 157, 0.1);
+  border: 1px solid rgba(255, 107, 157, 0.2);
+  color: var(--accent-pink);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 800;
+  margin: 12px 0 6px;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, #fff 40%, var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.ride {
+  margin-top: 28px;
+  position: relative;
+  height: 50px;
+}
+
+.road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 28px;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0, rgba(255,255,255,0.15) 12px, transparent 12px, transparent 20px);
+}
+
+.bike {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  font-size: 32px;
+  transform: translateX(-50%);
+  transition: left 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+}
+
+.finish {
+  position: absolute;
+  right: -5px;
+  top: 0;
+  font-size: 28px;
+}
+
+.progress {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+#motivation {
+  margin: 20px 0;
+  padding: 16px 20px;
+  border-radius: 16px;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.1), rgba(77, 166, 255, 0.05));
+  border: 1px solid rgba(255, 107, 157, 0.2);
+  color: #ffe6f0;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 20px 0 30px;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, var(--accent-pink), #e05286);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
+}
+
+button.secondary {
+  background: var(--card-bg);
+  color: var(--text-main);
+  border: 1px solid var(--card-border);
+  box-shadow: none;
+}
+
+button.secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.card {
+  position: relative;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.route-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent-blue);
+  background: rgba(77, 166, 255, 0.1);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: 14px;
+}
+
+.q {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin-bottom: 18px;
+  color: #fff;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin: 10px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 15px;
+}
+
+label:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+label input { display: none; }
+
+label span.opt-btn {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-right: 12px;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+label.selected {
+  background: rgba(77, 166, 255, 0.08);
+  border-color: var(--accent-blue);
+}
+
+label.selected span.opt-btn {
+  background: var(--accent-blue);
+  color: #fff;
+}
+
+label.correct {
+  background: rgba(46, 204, 113, 0.1) !important;
+  border-color: var(--accent-green) !important;
+  color: #fff;
+}
+
+label.correct span.opt-btn {
+  background: var(--accent-green) !important;
+  color: #fff !important;
+}
+
+label.wrong {
+  background: rgba(255, 71, 87, 0.1) !important;
+  border-color: var(--accent-red) !important;
+}
+
+label.wrong span.opt-btn {
+  background: var(--accent-red) !important;
+  color: #fff !important;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 14px;
+}
+
+.reveal {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  padding: 8px 14px;
+  box-shadow: none;
+}
+
+.reveal:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.answer {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: rgba(46, 204, 113, 0.08);
+  border: 1px solid rgba(46, 204, 113, 0.2);
+  color: #a3e6be;
+  font-size: 14px;
+}
+
+.hidden { display: none; }
+
+#result {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 20px 0;
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+}
+
+.small {
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.corner {
+  position: fixed;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+  z-index: 10;
+  font-weight: 600;
+}
+.c1 { top: 16px; left: 16px; }
+.c2 { top: 16px; right: 16px; }
+.c3 { bottom: 16px; left: 16px; }
+.c4 { bottom: 16px; right: 16px; }
+
+@media(max-width: 600px) {
+  .wrap { padding: 16px 12px 60px; }
+  .hero { border-radius: 20px; padding: 20px 18px; }
+  .card { border-radius: 16px; padding: 18px; }
+  .q { font-size: 16px; }
+  .corner { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="corner c1">♡ pedal pedal</div>
+<div class="corner c2">ride safe ♡</div>
+<div class="corner c3">♡</div>
+<div class="corner c4">i love you so so muchhh ♡</div>
+
+<div class="wrap">
+  <section class="hero">
+    <span class="badge">🚲 Her Biology Study Ride</span>
+    <h1>Goodluck my Princess 💖</h1>
+    <p class="subtitle">Every question gets you a little closer to the finish line.</p>
+    <div class="ride">
+      <div class="road"></div>
+      <div class="bike" id="bike">🚲</div>
+      <div class="finish">🏁</div>
+    </div>
+    <div class="progress">
+      <span id="progress">0/60 attempted</span>
+      <span>Start → Finish</span>
+    </div>
+  </section>
+
+  <div id="motivation">Ready? Goodluck my Princess 💖</div>
+
+  <div class="toolbar">
+    <button onclick="grade()">✓ Check answers</button>
+    <button class="secondary" onclick="showWrong()">🔧 Pit stop — wrong questions</button>
+    <button class="secondary" onclick="resetQuiz()">↻ New ride</button>
+  </div>
+
+  <div id="quiz"></div>
+  <div id="result" class="hidden"></div>
+
+  <p class="small">💡 <b>Study strategy:</b> Answer first without looking. If you're stuck, use the answer button on that question. After checking, use the Pit Stop to revisit mistakes.</p>
+</div>
+<script>
+const qs=[
+  {"q": "Welke volgorde van organisatieniveaus is juist?", "o": ["cel → molecuul → weefsel → orgaan", "molecuul → organel → cel → weefsel", "orgaan → cel → orgaanstelsel → weefsel", "organel → molecuul → cel → organisme"], "c": 1},
+  {"q": "Wat is een emergente eigenschap?", "o": ["Een eigenschap van alleen moleculen", "Een eigenschap die op een hoger niveau ontstaat", "Een eigenschap die altijd erfelijk is", "Een eigenschap die alleen bij planten voorkomt"], "c": 1},
+  {"q": "Welke combinatie is juist?", "o": ["Biofysica = biologie + chemie", "Biochemie = biologie + scheikunde", "Bio-informatica = biologie + geneeskunde", "Paleontologie = biologie + natuurkunde"], "c": 1},
+  {"q": "Wat is stofwisseling?", "o": ["Alle bewegingen van een organisme", "Alle chemische reacties in een organisme", "Alle erfelijke eigenschappen", "Alle transportprocessen buiten de cel"], "c": 1},
+  {"q": "Wat is een weefsel?", "o": ["Een groep organen", "Een groep cellen met een gezamenlijke functie", "Een groep populaties", "Een onderdeel van een molecuul"], "c": 1},
+  {"q": "Welk weefsel ontvangt en geleidt signalen?", "o": ["Bindweefsel", "Spierweefsel", "Zenuwweefsel", "Dekweefsel"], "c": 2},
+  {"q": "Welk weefsel zorgt vooral voor steun en verbinding?", "o": ["Bindweefsel", "Zenuwweefsel", "Dekweefsel", "Spierweefsel"], "c": 0},
+  {"q": "Welke structuur is kenmerkend voor een plantencel?", "o": ["Celwand", "Alleen mitochondriën", "Alleen celkern", "Geen celmembraan"], "c": 0},
+  {"q": "Waaruit bestaat de plantaardige celwand onder andere?", "o": ["Glycogeen", "Cellulose", "ATP", "DNA"], "c": 1},
+  {"q": "Wat is de hoofdrol van chloroplasten?", "o": ["Eiwitafbraak", "Fotosynthese", "ATP-afbraak", "DNA-opslag"], "c": 1},
+  {"q": "Welke plastiden zijn vooral betrokken bij kleurstoffen?", "o": ["Ribosomen", "Chromoplasten", "Mitochondriën", "Lysosomen"], "c": 1},
+  {"q": "Welke plastiden zijn vooral opslagorganellen?", "o": ["Leukoplasten", "Chromoplasten", "Ribosomen", "Golgisystemen"], "c": 0},
+  {"q": "Wat is het verschil tussen TEM en SEM?", "o": ["TEM geeft 3D oppervlak, SEM 2D doorsnede", "TEM geeft 2D doorsnede, SEM een 3D-achtig oppervlakbeeld", "Beide geven exact hetzelfde", "TEM is voor levende cellen, SEM voor alleen DNA"], "c": 1},
+  {"q": "Wat bevat de celkern?", "o": ["Alleen ATP", "Chromosomen met DNA", "Alleen lysosomen", "Alleen fosfolipiden"], "c": 1},
+  {"q": "Wat doen ribosomen?", "o": ["Maken eiwitten", "Maken celwanden", "Breken glucose af", "Slaan water op"], "c": 0},
+  {"q": "Welke organel heeft ribosomen aan het oppervlak?", "o": ["GER", "RER", "Lysosoom", "Vacuole"], "c": 1},
+  {"q": "Wat doet het Golgisysteem?", "o": ["Bewerkt en verpakt moleculen", "Maakt DNA", "Voert osmose uit", "Maakt cellulose in de celwand"], "c": 0},
+  {"q": "Wat doen lysosomen?", "o": ["Eiwitten maken", "Stoffen afbreken met enzymen", "Fotosynthese", "Water opslaan"], "c": 1},
+  {"q": "Wat is een belangrijke functie van mitochondriën?", "o": ["ATP-productie", "Celluloseopslag", "DNA-replicatie buiten de kern", "Kleurstofproductie"], "c": 0},
+  {"q": "Waarom heeft het binnenmembraan van mitochondriën plooien?", "o": ["Voor groter oppervlak", "Om water door te laten", "Om DNA te beschermen", "Om de celwand te vormen"], "c": 0},
+  {"q": "Hoe is een fosfolipide opgebouwd?", "o": ["Hydrofiele kop + hydrofobe staarten", "Hydrofobe kop + hydrofiele staarten", "Alleen eiwit", "Alleen cellulose"], "c": 0},
+  {"q": "Wat betekent hydrofiel?", "o": ["Waterafstotend", "Wateraantrekkend", "Vetafstotend", "Energie-rijk"], "c": 1},
+  {"q": "Wat is endocytose?", "o": ["Afgifte via een blaasje", "Opname via een blaasje", "Diffusie van water", "Actief transport van zuurstof"], "c": 1},
+  {"q": "Wat is exocytose?", "o": ["Opname van materiaal", "Afgifte via een blaasje", "Osmose", "Celademhaling"], "c": 1},
+  {"q": "Wat is diffusie?", "o": ["Van lage naar hoge concentratie met ATP", "Van hoge naar lage concentratie", "Watertransport alleen", "Transport via DNA"], "c": 1},
+  {"q": "Is diffusie passief of actief?", "o": ["Actief", "Passief", "Altijd actief", "Geen van beide"], "c": 1},
+  {"q": "Wat is osmose?", "o": ["Diffusie van water door een semipermeabel membraan", "Transport van eiwitten via ribosomen", "ATP-productie", "Afgifte van enzymen"], "c": 0},
+  {"q": "Waarheen beweegt water bij osmose?", "o": ["Naar lagere osmotische waarde", "Naar hogere osmotische waarde", "Altijd naar buiten", "Altijd naar de celkern"], "c": 1},
+  {"q": "Wat betekent hypertoon voor de omgeving?", "o": ["Lagere osmotische waarde", "Hogere osmotische waarde", "Gelijke osmotische waarde", "Geen opgeloste stoffen"], "c": 1},
+  {"q": "Wat gebeurt met een rode bloedcel in een hypertone omgeving?", "o": ["Hij zwelt", "Hij krimpt", "Hij deelt", "Hij maakt chloroplasten"], "c": 1},
+  {"q": "Wat gebeurt met een rode bloedcel in een hypotone omgeving?", "o": ["Hij kan opzwellen en barsten", "Hij krimpt altijd", "Hij maakt turgor", "Hij vormt een celwand"], "c": 0},
+  {"q": "Wat is turgor?", "o": ["Druk van celinhoud tegen celwand", "ATP-productie", "DNA-verpakking", "Eiwitafbraak"], "c": 0},
+  {"q": "Wat is plasmolyse?", "o": ["Wateropname waardoor cel groter wordt", "Loslaten van membraan van celwand door waterverlies", "Eiwitproductie", "Celverdeling"], "c": 1},
+  {"q": "Wat is actief transport?", "o": ["Transport met de gradiënt mee zonder energie", "Transport tegen de gradiënt in met energie", "Alleen osmose", "Alleen diffusie"], "c": 1},
+  {"q": "Welke energiedrager is vaak betrokken bij actief transport?", "o": ["DNA", "ATP", "Cellulose", "Chlorofyl"], "c": 1},
+  {"q": "Wat doen aquaporines?", "o": ["Versnellen watertransport", "Maken eiwitten", "Breken DNA af", "Maken glucose"], "c": 0},
+  {"q": "Wat is literatuuronderzoek?", "o": ["Nieuwe cellen maken", "Bestaande kennis uit bronnen verzamelen", "Alleen experimenteren", "Alleen enquêtes afnemen"], "c": 1},
+  {"q": "Wat is beschrijvend onderzoek?", "o": ["Een verschijnsel beschrijven via observaties/metingen", "Altijd een model bouwen", "Altijd een enquête", "Altijd een controlegroep gebruiken"], "c": 0},
+  {"q": "Wat is hypothesetoetsend onderzoek?", "o": ["Een hypothese testen", "Alleen boeken lezen", "Alleen foto's maken", "Een cel kleuren"], "c": 0},
+  {"q": "Wat is een hypothese?", "o": ["Een toetsbare verklaring/verwachting", "Een bewezen feit", "Een meeteenheid", "Een controlegroep"], "c": 0},
+  {"q": "Wat is de onafhankelijke variabele?", "o": ["Wat je bewust verandert", "Wat je meet", "Wat je constant houdt", "De conclusie"], "c": 0},
+  {"q": "Wat is de afhankelijke variabele?", "o": ["Wat je bewust verandert", "Wat je meet als uitkomst", "De bron", "De controlegroep"], "c": 1},
+  {"q": "Wat zijn controlevariabelen?", "o": ["Factoren die je gelijk houdt", "Factoren die je expres verandert", "Alle resultaten", "Alle hypotheses"], "c": 0},
+  {"q": "Waarom gebruik je een controlegroep?", "o": ["Om te kunnen vergelijken", "Om meer variabelen tegelijk te veranderen", "Om een hypothese automatisch waar te maken", "Om geen metingen te doen"], "c": 0},
+  {"q": "Wat is validiteit?", "o": ["Of je onderzoek werkelijk de onderzoeksvraag beantwoordt", "Of een experiment snel is", "Of iedereen dezelfde mening heeft", "Of de steekproef groot is"], "c": 0},
+  {"q": "Wat is betrouwbaarheid?", "o": ["Of herhaling vergelijkbare resultaten geeft", "Of de hypothese populair is", "Of de grafiek mooi is", "Of het onderzoek duur is"], "c": 0},
+  {"q": "Wat is een model?", "o": ["Een vereenvoudigde voorstelling van de werkelijkheid", "Een willekeurige gok", "Een celorganel", "Een soort hypothese die altijd waar is"], "c": 0},
+  {"q": "Wat is een steekproef?", "o": ["Een deel van de totale onderzoeksgroep", "De hele populatie", "Een controlegroep", "Een onderzoeksvraag"], "c": 0},
+  {"q": "Wat betekent representatief?", "o": ["Goed overeenkomend met de onderzochte populatie", "Zo klein mogelijk", "Altijd willekeurig zonder doel", "Altijd mannelijk"], "c": 0},
+  {"q": "Welke volgorde hoort bij ontwerpend onderzoek?", "o": ["Prototype → probleem → ideeën → presenteren", "Probleem → ideeën → concept → prototype → testen/optimaliseren → presenteren", "Presenteren → probleem → testen", "Hypothese → DNA → prototype"], "c": 1},
+  {"q": "Welke stap komt direct na een onderzoeksvraag in een eenvoudige onderzoeksketen?", "o": ["Hypothese/verwachting", "Conclusie", "Presenteren", "Celademhaling"], "c": 0},
+  {"q": "Wat is het verschil tussen passief en actief transport?", "o": ["Passief kost ATP, actief niet", "Passief gaat met gradiënt mee; actief kan ertegenin", "Ze zijn identiek", "Actief is alleen osmose"], "c": 1},
+  {"q": "Een cel ligt in een hypertonische oplossing. Wat verwacht je voor water?", "o": ["Netto water naar de cel", "Netto water uit de cel", "Geen beweging van water", "Water wordt glucose"], "c": 1},
+  {"q": "Een plantencel neemt water op in een hypotone omgeving. Wat neemt toe?", "o": ["Turgor", "Plasmolyse", "Celkrimp", "DNA-concentratie"], "c": 0},
+  {"q": "Een onderzoek meet alleen het effect dat de onderzoeker wilde testen en houdt andere factoren gelijk. Welke variabele is de gemeten uitkomst?", "o": ["Onafhankelijke", "Afhankelijke", "Controlevariabele", "Steekproef"], "c": 1},
+  {"q": "Een experiment wordt herhaald en geeft steeds ongeveer dezelfde uitkomst. Dit ondersteunt vooral:", "o": ["Validiteit", "Betrouwbaarheid", "Hypothese als feit", "Representativiteit"], "c": 1},
+  {"q": "Een onderzoek meet een andere uitkomst dan de onderzoeksvraag bedoelde. Het probleem is vooral:", "o": ["Validiteit", "Betrouwbaarheid", "Turgor", "Osmose"], "c": 0},
+  {"q": "Welke combinatie is correct?", "o": ["Ribosoom–eiwit; mitochondrium–ATP; chloroplast–fotosynthese", "Ribosoom–osmose; mitochondrium–cellulose; chloroplast–DNA-opslag", "Golgi–DNA; lysosoom–fotosynthese; RER–turgor", "Vacuole–ATP; kern–osmose; celwand–eiwitproductie"], "c": 0},
+  {"q": "Welke combinatie is correct?", "o": ["Diffusie–hoog naar laag; actief transport–tegen gradiënt", "Diffusie–ATP; actief transport–geen energie", "Osmose–eiwitten; diffusie–DNA", "Plasmolyse–wateropname; turgor–waterverlies"], "c": 0},
+  {"q": "Welke combinatie is correct?", "o": ["Plantencel–celwand/vacuole/plastiden; dierlijke cel–geen celwand", "Plantencel–geen membraan; dierlijke cel–celwand", "Plantencel–geen kern; dierlijke cel–chloroplast", "Plantencel–geen cytoplasma; dierlijke cel–vacuole altijd groot"], "c": 0}
+];
+
+const root=document.getElementById('quiz');
+const stageNames=["🚲 Starting Line","🌿 Easy Ride","⚙️ Gear Shift","🏁 Hill Climb","💨 Speed Section","🏆 Final Lap"];
+const motivational=[
+  "Im so proud of you baby. ♡",
+  "Keep pedalinggg, you’re doing amazing.",
+  "One question at a time, baby. You got this. ♡",
+  "Im so proud of youuu.",
+  "Don't give up now — you're getting stronger with every question.",
+  "You're doing this for your future, baby. Keep going. ♡",
+  "I love you so so muchhh. Now get this question 😭❤️",
+  "Look at how much you already know. Keep goinggg.",
+  "Deep breath. Read carefully. You know this.",
+  "I'm rooting for you always, baby. ♡"
+];
+
+function sectionFor(n){return Math.min(5,Math.floor(n/10));}
+
+function render(list=qs){
+  root.innerHTML=list.map((x,i)=>{
+    const id=x.id??i, stage=stageNames[sectionFor(i)];
+    return `<div class="card" id="c${id}">
+      <div class="route-label">${stage}</div>
+      <div class="q">${i+1}. ${x.q}</div>
+      ${x.o.map((o,j)=>`<label onclick="choose(this)"><input type="radio" name="q${id}" value="${j}"><span class="opt-btn">${String.fromCharCode(65+j)}</span>${o}</label>`).join('')}
+      <div class="actions">
+        <button class="reveal" onclick="reveal(this,'${encodeURIComponent(x.o[x.c])}')">👀 Reveal answer</button>
+      </div>
+      <div class="answer hidden"></div>
+    </div>`;
+  }).join('');
+  updateProgress();
+}
+
+function choose(label){
+  const card=label.closest('.card');
+  card.querySelectorAll('label').forEach(l=>l.classList.remove('selected','correct','wrong'));
+  label.classList.add('selected');
+  updateProgress();
+}
+
+function reveal(btn,encoded){
+  const box=btn.parentElement.nextElementSibling;
+  box.classList.toggle('hidden');
+  box.innerHTML=box.classList.contains('hidden')?'':`<b>Answer:</b> ${decodeURIComponent(encoded)}`;
+}
+
+function updateProgress(){
+  let answered=0, correct=0;
+  qs.forEach((x,i)=>{
+    const c=document.querySelector(`input[name="q${x.id??i}"]:checked`);
+    if(c){
+      answered++;
+      if(+c.value===x.c) correct++;
+    }
+  });
+  const bike=document.getElementById('bike');
+  if(bike) bike.style.left=`${Math.min(98, (answered/qs.length)*98)}%`;
+  document.getElementById('progress').innerHTML=`<b>${answered}/${qs.length}</b> attempted · ${correct} correct`;
+}
+
+function grade(){
+  let score=0, answered=0;
+  qs.forEach((x,i)=>{
+    const c=document.querySelector(`input[name="q${x.id??i}"]:checked`),
+          card=document.getElementById('c'+(x.id??i));
+    if(!card) return;
+    card.querySelectorAll('label').forEach(l=>l.classList.remove('selected','correct','wrong'));
+    
+    const labels=card.querySelectorAll('label');
+    labels[x.c].classList.add('correct');
+
+    if(c){
+      answered++;
+      const j=+c.value;
+      if(j===x.c){
+        score++;
+      } else {
+        labels[j].classList.add('wrong');
+      }
+    }
+  });
+  
+  const pct=Math.round(score/qs.length*100);
+  const resElem = document.getElementById('result');
+  resElem.classList.remove('hidden');
+  resElem.textContent=`${score}/${qs.length} correct (${pct}%). ${answered<qs.length?`Je hebt ${qs.length-answered} vragen nog niet beantwoord.`:''}`;
+  motivate();
+  updateProgress();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showWrong(){
+  const wrong=qs.filter((x,i)=>{
+    const c=document.querySelector(`input[name="q${x.id??i}"]:checked`);
+    return c && +c.value!==x.c;
+  });
+  const resElem = document.getElementById('result');
+  resElem.classList.remove('hidden');
+  if(!wrong.length){
+    resElem.textContent="Nog geen foute antwoorden gevonden — beantwoord eerst wat vragen.";
+    return;
+  }
+  render(wrong);
+  resElem.textContent=`🔧 Pit stop: je herhaalt nu ${wrong.length} foute vraag${wrong.length===1?'':'en'}.`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function motivate(){
+  document.getElementById('motivation').textContent=motivational[Math.floor(Math.random()*motivational.length)];
+}
+
+function resetQuiz(){
+  render(qs);
+  const resElem = document.getElementById('result');
+  resElem.classList.add('hidden');
+  resElem.textContent='';
+  document.getElementById('motivation').textContent="Ready? Goodluck my Princess 💖";
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+render(qs);
+</script>
+</body>
+</html>
